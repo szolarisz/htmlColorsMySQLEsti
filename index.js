@@ -53,15 +53,18 @@ const server = http.createServer((req, res) => {
                 if (err) throw err;
                 conn.query(mySelect, (err, result, fields) => {
                     if (err) throw err;
+                    
                     const szinekJson = JSON.stringify(result);
                     res.setHeader("Content-Type", "application/json");
                     res.writeHead(200);
                     //console.log(szinekJson);
+                    conn.end();
                     res.end( szinekJson );
                 });
-                conn.end();
+                
                 
             });
+            
             break;
 
         case req.url === '/lista' && req.method === "GET":
